@@ -1,14 +1,14 @@
 // exef2paz, v1.22r5 2014/02/02
-// coded by asmodean•‰ü‘¢8pvc09vr11
+// coded by asmodeanä»Œå¤µæ†¿8pvc09vr11
 
-// modified by ¸£Òô modified by Fuyin 2016/2/28
+// modified by ç¦éŸ³ modified by Fuyin 2016/2/28
 //Fix a repack bug.
-//Add a new game support(¥½¥ì¥è¥ê¥ÎÇ°×àÔŠ).
-//Add a new game support(×ï¥Î¹â¥é¥ó¥Ç¥ô©`).
-//Add a new game support(¥È¥ê¥Î¥é¥¤¥ó). 2017/4/1
-//Add a new game support(¥È¥ê¥Î¥é¥¤¥ó£º¥¸¥§¥Í¥·¥¹). 2018/2/1
-//Add two game support(¥½¥ì¥è¥ê¥ÎÇ°×àÔŠ¡¡¥¢¥Ú¥ó¥ÉH and ×ï¥Î¹â¥é¥ó¥Ç¥ô©`¡¡¤ß¤«¤ó¥Ö¥í¥Ã¥µ¥à). 2018/9/8
-//Add a new game support(¤½¤ÎÈÕ¤Îª•¤Ë¤Ï¡¢). 2019/1/28
+//Add a new game support(ã‚½ãƒ¬ãƒ¨ãƒªãƒå‰å¥è©©).
+//Add a new game support(ç½ªãƒå…‰ãƒ©ãƒ³ãƒ‡ãƒ´ãƒ¼).
+//Add a new game support(ãƒˆãƒªãƒãƒ©ã‚¤ãƒ³). 2017/4/1
+//Add a new game support(ãƒˆãƒªãƒãƒ©ã‚¤ãƒ³ï¼šã‚¸ã‚§ãƒã‚·ã‚¹). 2018/2/1
+//Add two game support(ã‚½ãƒ¬ãƒ¨ãƒªãƒå‰å¥è©©ã€€ã‚¢ãƒšãƒ³ãƒ‰H and ç½ªãƒå…‰ãƒ©ãƒ³ãƒ‡ãƒ´ãƒ¼ã€€ã¿ã‹ã‚“ãƒ–ãƒ­ãƒƒã‚µãƒ ). 2018/9/8
+//Add a new game support(ãã®æ—¥ã®ç£ã«ã¯ã€). 2019/1/28
 
 //Add a new game support(ef - the first tale (en)). 2021/11/02
 //Add a new game support(ef - the latter tale (en NNL)). 2021/11/02
@@ -18,6 +18,7 @@
 //Add a new game support(ef - the latter tale (en steam)). 2021/11/03
 //Add a new game support(ef - the first tale (en steam)). 2021/11/07
 //Add a new game support(Trinoline: Genesis (en steam)). 2022/01/21
+//Add a new game src and st support (Haru no Ashioto) 2025/05/13
 
 // This tool extracts and rebuilds data from *.paz archives used by minori.
 
@@ -52,6 +53,21 @@ struct game_info_t {
 };
 
 static const game_info_t GAME_INFO[] = {
+    {   "Haru no Ashioto",
+        0,
+        {
+            {   "scr",
+                { 0x96, 0x17, 0xf4, 0x71, 0x31, 0xfb, 0x6f, 0xca, 0x04, 0x29, 0x2b, 0xfe, 0x6e, 0x19, 0x15, 0x56, 0x63, 0x7b, 0x6b, 0x29, 0xb5, 0x6d, 0x1f, 0xaa, 0x92, 0xf0, 0x80, 0x04, 0x4f, 0x9d, 0x17, 0xa9, },
+                { 0x63, 0x94, 0xcf, 0xe6, 0xb7, 0xb6, 0x5a, 0xbc, 0x1d, 0x14, 0xcf, 0xeb, 0x1d, 0xa6, 0x98, 0x4f, 0xf8, 0x41, 0x8b, 0x6f, 0xe7, 0xc3, 0x57, 0x54, 0xa4, 0x91, 0x22, 0x97, 0x2b, 0x43, 0x70, 0xbe, }
+            },
+            {   "st",
+                { 0x53, 0xf3, 0x29, 0x72, 0x46, 0x6c, 0x05, 0x4b, 0xbb, 0x57, 0xae, 0x59, 0xb7, 0x31, 0xf9, 0x2e, 0x56, 0x33, 0x8c, 0xe7, 0x13, 0x84, 0x43, 0x02, 0x44, 0xae, 0xd2, 0x70, 0xe4, 0x4f, 0xac, 0xeb, },
+                { 0x95, 0x11, 0x24, 0x8a, 0xe5, 0xdb, 0xd2, 0x93, 0xd1, 0x49, 0x39, 0x90, 0x88, 0x5a, 0xa6, 0xa5, 0x71, 0x69, 0x5b, 0x20, 0x6e, 0x5f, 0xed, 0x52, 0x63, 0x26, 0xeb, 0x9e, 0xf2, 0x61, 0xc0, 0xcf, }
+            },
+            { "", { 0 }, { 0 } },
+        },
+        { "", "", "", "" },
+    },
     {   "ef - the first tale (jp)",
         1,
         {
@@ -1202,7 +1218,7 @@ int main(int argc, char** argv)
 {
 
 	if (argc < 3) {
-		fprintf(stderr, "exef2paz v1.22r7 by asmodean£¦¸ÄÔì8pvc09vr11£¦modified¸£Òô&ImKota\n\n");
+		fprintf(stderr, "exef2paz v1.22r7 by asmodeanï½£ï½¦ï½¸ï¾„ï¾”ãƒ»pvc09vr11ï½£ï½¦modifiedï½¸ï½£ï¾’ãƒ»ImKota\n\n");
 		fprintf(stderr, "usage: %s <input.paz> <game index> [output.paz]\n\n", argv[0]);
 
 		for (unsigned long i = 0; i < GAME_COUNT; i++) {
@@ -1265,13 +1281,20 @@ int main(int argc, char** argv)
 		}
 	}
 
-	PAZHDR hdr;
-	read(fd, &hdr, sizeof(hdr));
-
+    PAZHDR hdr = { 0 };
+    if (game_info.version > 0) {
+        read(fd, &hdr, sizeof(hdr));
+    }
+    else {
+        read(fd, &hdr.toc_len, sizeof(&hdr.toc_len));
+    }
+	
 	char simple_key = hdr.toc_len >> 24;
 
-	lseek(fd, 0, SEEK_SET);
-	read_unobfuscate(fd, simple_key, &hdr, sizeof(hdr));
+	if (game_info.version > 0) {
+        lseek(fd, 0, SEEK_SET);
+		read_unobfuscate(fd, simple_key, &hdr, sizeof(hdr));
+	}
 
 	Blowfish bf;
 
@@ -1286,8 +1309,15 @@ int main(int argc, char** argv)
 		out_fd = as::open_or_die(out_filename,
 			O_CREAT | O_TRUNC | O_WRONLY | O_BINARY);
 
-		write_obfuscate(out_fd, simple_key, &hdr, sizeof(hdr));
-		write_obfuscate(out_fd, simple_key, toc_buff, hdr.toc_len);
+        if (game_info.version > 0) {
+		    write_obfuscate(out_fd, simple_key, &hdr, sizeof(hdr));
+        }
+        else {
+            write(out_fd, &hdr.toc_len, sizeof(&hdr.toc_len));
+        }
+
+        write_obfuscate(out_fd, simple_key, toc_buff, hdr.toc_len);
+		
 	}
 
 	PAZHDR2*       hdr2 = (PAZHDR2*)toc_buff;
@@ -1407,6 +1437,7 @@ int main(int argc, char** argv)
 		if (do_rebuild)
 		{
 			write_obfuscate(out_fd, simple_key, buff, len);
+
 		}
 		else
 		{
@@ -1439,12 +1470,19 @@ int main(int argc, char** argv)
 
 	if (do_rebuild)
 	{
-		bf.Set_Key(keys.toc_key, sizeof(keys.toc_key));
-		bf.Encrypt(toc_buff, hdr.toc_len);
+        bf.Set_Key(keys.toc_key, sizeof(keys.toc_key));
+        bf.Encrypt(toc_buff, hdr.toc_len);
 
-		lseek(out_fd, 0, SEEK_SET);
-		write_obfuscate(out_fd, simple_key, &hdr, sizeof(hdr));
-		write_obfuscate(out_fd, simple_key, toc_buff, hdr.toc_len);
+        lseek(out_fd, 0, SEEK_SET);
+
+        if (game_info.version > 0) {
+            write_obfuscate(out_fd, simple_key, &hdr, sizeof(hdr));
+        }
+        else {
+			write(out_fd, &hdr.toc_len, sizeof(&hdr.toc_len));
+        }
+
+        write_obfuscate(out_fd, simple_key, toc_buff, hdr.toc_len);
 		close(out_fd);
 	}
 

@@ -18,7 +18,7 @@
 //Add a new game support(ef - the latter tale (en steam)). 2021/11/03
 //Add a new game support(ef - the first tale (en steam)). 2021/11/07
 //Add a new game support(Trinoline: Genesis (en steam)). 2022/01/21
-//Add a new game src support(Haru no Ashioto) 2025/02/13
+//Add a new game support(Haru no Ashioto) 2025/02/13
 
 // This tool extracts and rebuilds data from *.paz archives used by minori.
 
